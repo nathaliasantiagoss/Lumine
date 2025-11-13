@@ -1,1 +1,5 @@
 TI|Muito bem|Dia excelente|2025-11-10 16:29:16
+Educação|Muito bem|Tudo tranquilo, normal|2025-11-10 19:58:33
+TI|Triste|Desmotivado ou cansado emocionalmente|2025-11-13 17:59:06
+TI|Opção inválida|Opção inválida|2025-11-13 17:59:20
+TI|Irritado|Desmotivado ou cansado emocionalmente|2025-11-13 17:59:30

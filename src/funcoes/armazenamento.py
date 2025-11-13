@@ -1,5 +1,3 @@
-from funcoes.utils import *
-
 def salvar_usuario(dados_usuario):
     delimitador = '|'
     usuario = []
@@ -47,5 +45,78 @@ def ler_usuarios():
         print(f"Erro ao ler o arquivo de cadastro: {e}")
     finally:
         arquivo_cadastro.close()
-        
 
+def atualizar_pontuacao(nome_usuario):
+    delimitador = '|'
+    arquivo_pontuacao = None
+    linhas_pontuacao = []
+    usuario_encontrado = False
+
+    try:
+        # Tenta abrir o arquivo de pontuação para leitura
+        arquivo_pontuacao = open("pontuacao.txt", "r", encoding="utf-8")
+        for linha in arquivo_pontuacao:
+            campos = linha.strip().split(delimitador)
+            if len(campos) == 2:
+                nome = campos[0]
+                pontos = int(campos[1])
+                if nome == nome_usuario:
+                    pontos += 10
+                    usuario_encontrado = True
+                linhas_pontuacao.append(f"{nome}{delimitador}{pontos}\n")
+            else:
+                # Mantém a linha original se estiver em formato inesperado
+                linhas_pontuacao.append(linha)
+    except FileNotFoundError:
+        # Se o arquivo não existir, ele será criado depois
+        pass
+    except Exception as e:
+        print(f"Erro ao ler o arquivo de pontuação: {e}")
+    finally:
+        if arquivo_pontuacao:
+            arquivo_pontuacao.close()
+
+    # Se o usuário ainda não estiver no arquivo, adiciona com 10 pontos
+    if not usuario_encontrado:
+        linhas_pontuacao.append(f"{nome_usuario}{delimitador}10\n")
+
+    # Reescreve o arquivo com as pontuações atualizadas
+    try:
+        arquivo_pontuacao = open("pontuacao.txt", "w", encoding="utf-8")
+        for linha in linhas_pontuacao:
+            arquivo_pontuacao.write(linha)
+        print(f"🏅 +10 pontos adicionados para {nome_usuario}!")
+    except Exception as e:
+        print(f"Erro ao salvar o arquivo de pontuação: {e}")
+    finally:
+        if arquivo_pontuacao:
+            arquivo_pontuacao.close()
+        
+def ler_pontuacao(nome_usuario):
+    try:
+        arquivo_pontuacao = open("pontuacao.txt", "r", encoding="utf-8")    
+        for linha in arquivo_pontuacao:
+            nome, pontos = linha.strip().split('|')
+            if nome == nome_usuario:
+                return int(pontos)
+        return 0  # se não encontrar o usuário
+    except FileNotFoundError:
+        return 0
+    
+def salvar_pontuacao(nome_usuario, nova_pontuacao):
+    linhas = []
+    try:
+        arquivo_pontuacao = open("pontuacao.txt", "r", encoding="utf-8") 
+        for linha in arquivo_pontuacao:
+            nome, pontos = linha.strip().split('|')
+            if nome == nome_usuario:
+                linhas.append(f"{nome}|{nova_pontuacao}\n")
+            else:
+                linhas.append(linha)
+    except FileNotFoundError:
+        # se o arquivo não existir, cria um novo
+        linhas.append(f"{nome_usuario}|{nova_pontuacao}\n")
+
+    arquivo_pontuacao = open("pontuacao.txt", "w", encoding="utf-8") 
+    for linha in linhas:
+        arquivo_pontuacao.write(linha)

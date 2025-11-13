@@ -1,3 +1,4 @@
 Nathalia|29|Feminino|TI|Dev|nathalia@gmail.com|123456
 teste|30|mas|ti|dev|teste@gmail.com|4587
 Lohan|22|Masculino|TI|Dev|lohan@gmail.com|12345
+Zeca|20|Masculino|Educação|Professor|zeca@gmail.com|123456

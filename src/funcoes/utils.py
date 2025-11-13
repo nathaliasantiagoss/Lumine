@@ -63,3 +63,4 @@ def registrar_humor():
     print("Registro de humor salvo com sucesso!")
 
     return humor_texto, contexto_texto
+
