@@ -69,12 +69,12 @@ while True:
                     premio_escolhido, custo = premios[escolha]
 
                     if pontos < custo:
-                        print(f"❌ Você não tem pontos suficientes para resgatar '{premio_escolhido}'.")
+                        print(f"Você não tem pontos suficientes para resgatar '{premio_escolhido}'.")
                     else:
                         nova_pontuacao = pontos - custo
                         armazenamento.salvar_pontuacao(usuario_logado["nome"], nova_pontuacao)
 
-                        print(f"🎉 Você resgatou: {premio_escolhido}!")
+                        print(f"Você resgatou: {premio_escolhido}!")
                         print(f"Novo saldo de pontos: {nova_pontuacao}\n")
                 elif opcao_menu == '3':
                         print(f'Até breve, {usuario_logado["nome"]}')
