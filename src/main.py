@@ -18,69 +18,103 @@ while True:
 
         if login_realizado:
             print(f'Olá, {usuario_logado["nome"]}')
-            while True:
-                print("=== Menu Principal ===")
-                opcao_menu = input("O que deseja fazer?\n" \
-                "1 - Registrar Humor\n" \
-                "2 - Resgatar recompensas\n" \
-                "3 - Sair\n"
-                "Opção: ")
+            if usuario_logado["email"] == "admin@admin.com":
+                while True:
+                    print("\n=== MENU ADMIN ===")
+                    opcao_admin = input(
+                        "1 - Visualizar lista de cadastrados\n"
+                        "2 - Relatório de humor\n"
+                        "3 - Deletar colaborador\n"
+                        "4 - Sair\n"
+                        "Opção: "
+                    )
 
-                if opcao_menu == '1':
-                    humor, contexto = utils.registrar_humor()
-                    data_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    dados_humor = [
-                        usuario_logado.get('setor', 'Setor não informado'),
-                        humor,
-                        contexto,
-                        data_hora
-                    ]
-                    armazenamento.salvar_humor(dados_humor)
-                    armazenamento.atualizar_pontuacao(usuario_logado["nome"])
-                    print(f"Humor: {humor}")
-                    print(f"Contexto: {contexto}\n")
-                elif opcao_menu == '2':
-                    print("\n=== Resgate de Recompensas ===")
+                    # Ver todos os cadastrados
+                    if opcao_admin == "1":
+                        usuarios = armazenamento.ler_usuarios()
+                        print("\n=== Lista de Colaboradores ===")
+                        for u in usuarios:
+                            print(f"{u['nome']} - {u['email']} - {u['setor']} - {u['cargo']}")
+                        print()
 
-                    pontos = armazenamento.ler_pontuacao(usuario_logado["nome"])
-                    print(f"Você possui {pontos} pontos.\n")
+                    # Relatório de humor
+                    elif opcao_admin == "2":
+                        armazenamento.relatorio_humor_por_setor()
+                        print()
 
-                    premios = {
-                        "1": ("Spa", 15),
-                        "2": ("Vale-snack", 50),
-                        "3": ("Saída antecipada (30 min)", 100),
-                        "4": ("Brinde da empresa", 150),
-                        "5": ("Dia de folga", 300)
-                    }
+                    # Deletar colaborador
+                    elif opcao_admin == "3":
+                        email_del = input("Digite o email do colaborador a deletar: ")
+                        armazenamento.deletar_usuario(email_del)
 
-                    print("Prêmios disponíveis:")
-                    for key, (nome, custo) in premios.items():
-                        print(f"{key} - {nome} ({custo} pontos)")
-
-                    escolha = input("Qual prêmio deseja resgatar? (ou 0 para voltar)\nOpção: ")
-
-                    if escolha == "0":
-                        continue
-
-                    if escolha not in premios:
-                        print("Opção inválida.")
-                        continue
-
-                    premio_escolhido, custo = premios[escolha]
-
-                    if pontos < custo:
-                        print(f"Você não tem pontos suficientes para resgatar '{premio_escolhido}'.")
+                    elif opcao_admin == "4":
+                        break
                     else:
-                        nova_pontuacao = pontos - custo
-                        armazenamento.salvar_pontuacao(usuario_logado["nome"], nova_pontuacao)
+                        print("Opção inválida.\n")
+            else:
+                while True:
+                    print("=== Menu Principal ===")
+                    opcao_menu = input("O que deseja fazer?\n" \
+                    "1 - Registrar Humor\n" \
+                    "2 - Resgatar recompensas\n" \
+                    "3 - Sair\n"
+                    "Opção: ")
 
-                        print(f"Você resgatou: {premio_escolhido}!")
-                        print(f"Novo saldo de pontos: {nova_pontuacao}\n")
-                elif opcao_menu == '3':
+                    if opcao_menu == '1':
+                        humor, contexto = utils.registrar_humor()
+                        data_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        dados_humor = [
+                            usuario_logado.get('setor', 'Setor não informado'),
+                            humor,
+                            contexto,
+                            data_hora
+                        ]
+                        armazenamento.salvar_humor(dados_humor)
+                        armazenamento.atualizar_pontuacao(usuario_logado["nome"])
+                        print(f"Humor: {humor}")
+                        print(f"Contexto: {contexto}\n")
+                    elif opcao_menu == '2':
+                        print("\n=== Resgate de Recompensas ===")
+
+                        pontos = armazenamento.ler_pontuacao(usuario_logado["nome"])
+                        print(f"Você possui {pontos} pontos.\n")
+
+                        premios = {
+                            "1": ("Spa", 15),
+                            "2": ("Vale-snack", 50),
+                            "3": ("Saída antecipada (30 min)", 100),
+                            "4": ("Brinde da empresa", 150),
+                            "5": ("Dia de folga", 300)
+                        }
+
+                        print("Prêmios disponíveis:")
+                        for key, (nome, custo) in premios.items():
+                            print(f"{key} - {nome} ({custo} pontos)")
+
+                        escolha = input("Qual prêmio deseja resgatar? (ou 0 para voltar)\nOpção: ")
+
+                        if escolha == "0":
+                            continue
+
+                        if escolha not in premios:
+                            print("Opção inválida.")
+                            continue
+
+                        premio_escolhido, custo = premios[escolha]
+
+                        if pontos < custo:
+                            print(f"Você não tem pontos suficientes para resgatar '{premio_escolhido}'.")
+                        else:
+                            nova_pontuacao = pontos - custo
+                            armazenamento.salvar_pontuacao(usuario_logado["nome"], nova_pontuacao)
+
+                            print(f"Você resgatou: {premio_escolhido}!")
+                            print(f"Novo saldo de pontos: {nova_pontuacao}\n")
+                    elif opcao_menu == '3':
                         print(f'Até breve, {usuario_logado["nome"]}')
                         break
-                else:
-                    print("Opção inválida. Tente novamente.")
+                    else:
+                        print("Opção inválida. Tente novamente.")
     elif menu_inicial == '3':
         print("Saindo do LUMINE. Até logo!")
         break

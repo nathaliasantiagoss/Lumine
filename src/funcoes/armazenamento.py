@@ -85,7 +85,7 @@ def atualizar_pontuacao(nome_usuario):
         arquivo_pontuacao = open("pontuacao.txt", "w", encoding="utf-8")
         for linha in linhas_pontuacao:
             arquivo_pontuacao.write(linha)
-        print(f"🏅 +10 pontos adicionados para {nome_usuario}!")
+        print(f"+10 pontos adicionados para {nome_usuario}!")
     except Exception as e:
         print(f"Erro ao salvar o arquivo de pontuação: {e}")
     finally:
@@ -102,6 +102,9 @@ def ler_pontuacao(nome_usuario):
         return 0  # se não encontrar o usuário
     except FileNotFoundError:
         return 0
+    finally:
+        if arquivo_pontuacao:
+            arquivo_pontuacao.close()
     
 def salvar_pontuacao(nome_usuario, nova_pontuacao):
     linhas = []
@@ -120,3 +123,130 @@ def salvar_pontuacao(nome_usuario, nova_pontuacao):
     arquivo_pontuacao = open("pontuacao.txt", "w", encoding="utf-8") 
     for linha in linhas:
         arquivo_pontuacao.write(linha)
+    arquivo_pontuacao.close()
+
+def deletar_usuario(email):
+    try:
+        # Lê todas as linhas do arquivo
+        arquivo_cadastro = open("cadastro.txt", "r", encoding="utf-8")
+        linhas = arquivo_cadastro.readlines()
+        arquivo_cadastro.close()
+
+        novas_linhas = []
+        usuario_deletado = False
+        nome_usuario = ""
+
+        # Procura o usuário na lista
+        for linha in linhas:
+            campos = linha.strip().split('|')
+
+            if len(campos) == 7:
+                if campos[5] == email:  # posição do email
+                    usuario_deletado = True
+                    nome_usuario = campos[0]  # nome do usuário
+                    continue  # não adiciona esta linha → deleta
+            novas_linhas.append(linha)
+
+        # Reescreve o arquivo
+        arquivo_cadastro = open("cadastro.txt", "w", encoding="utf-8")
+        for linha in novas_linhas:
+            arquivo_cadastro.write(linha)
+        arquivo_cadastro.close()
+
+        # Mensagens finais
+        if usuario_deletado:
+            print(f'\nCadastro do colaborador "{nome_usuario}" deletado com sucesso!\n')
+        else:
+            print("\nNenhum colaborador encontrado com esse email.\n")
+
+        return usuario_deletado
+
+    except Exception as e:
+        print(f"Erro ao tentar deletar usuário: {e}")
+        return False
+
+    
+def ler_humor():
+    lista_registros = []
+    try:
+        arquivo_humor = open("humor.txt", "r", encoding="utf-8")
+        for linha in arquivo_humor:
+            campos = linha.strip().split('|')
+            if len(campos) == 4:
+                lista_registros.append({
+                    "setor": campos[0],
+                    "humor": campos[1],
+                    "contexto": campos[2],
+                    "data": campos[3]
+                })
+        return lista_registros
+    except FileNotFoundError:
+        return []
+    finally:
+        if arquivo_humor:
+            arquivo_humor.close()
+
+def relatorio_humor_por_setor():
+    try:
+        arquivo = open("humor.txt", "r", encoding="utf-8")
+        linhas = arquivo.readlines()
+        arquivo.close()
+
+        if not linhas:
+            print("\nNenhum registro de humor encontrado.\n")
+            return
+
+        relatorio = {}
+
+        # Processa cada linha do arquivo
+        for linha in linhas:
+            campos = linha.strip().split('|')
+            if len(campos) == 4:
+                setor = campos[0]
+                humor = campos[1]
+                contexto = campos[2]
+
+                # Se setor ainda não existe no relatório
+                if setor not in relatorio:
+                    relatorio[setor] = {
+                        "total": 0,
+                        "humores": {},
+                        "contextos": {}
+                    }
+
+                # Atualiza total
+                relatorio[setor]["total"] += 1
+
+                # Contabiliza humor
+                if humor not in relatorio[setor]["humores"]:
+                    relatorio[setor]["humores"][humor] = 0
+                relatorio[setor]["humores"][humor] += 1
+
+                # Contabiliza contexto
+                if contexto not in relatorio[setor]["contextos"]:
+                    relatorio[setor]["contextos"][contexto] = 0
+                relatorio[setor]["contextos"][contexto] += 1
+
+        # Exibe relatório organizado
+        print("\n=== RELATÓRIO DE HUMOR POR SETOR ===\n")
+
+        for setor, dados in relatorio.items():
+            print(f"Setor: {setor}")
+            print(f"   Total de registros: {dados['total']}")
+
+            print("\n   Humores registrados:")
+            for humor, quantidade in dados["humores"].items():
+                print(f"     {humor}: {quantidade}x")
+
+            print("\n   Contextos registrados:")
+            for contexto, quantidade in dados["contextos"].items():
+                print(f"      {contexto}: {quantidade}x")
+
+            print("\n" + "-"*50 + "\n")
+
+    except Exception as e:
+        print(f"Erro ao gerar relatório: {e}")
+
+    finally:
+        if arquivo:
+            arquivo.close()
