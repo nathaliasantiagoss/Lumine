@@ -84,7 +84,7 @@ while True:
                             "2": ("Vale-snack", 50),
                             "3": ("Saída antecipada (30 min)", 100),
                             "4": ("Brinde da empresa", 150),
-                            "5": ("Dia de folga", 300)
+                            "5": ("Dia de folga", 200)
                         }
 
                         print("Prêmios disponíveis:")
