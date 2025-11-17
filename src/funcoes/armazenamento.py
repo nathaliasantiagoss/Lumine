@@ -250,3 +250,48 @@ def relatorio_humor_por_setor():
     finally:
         if arquivo:
             arquivo.close()
+
+def atualizar_usuario(email, novos_dados):
+
+    indices = {
+        "nome": 0,
+        "idade": 1,
+        "genero": 2,
+        "setor": 3,
+        "cargo": 4,
+        "senha": 5
+    }
+
+    try:
+        arquivo_cadastro = open("cadastro.txt", "r", encoding="utf-8") 
+        linhas = arquivo_cadastro.readlines()
+
+        novas_linhas = []
+        usuario_editado = False
+
+        for linha in linhas:
+            dados = linha.strip().split("|")
+
+            # Identifica o usuário pelo email
+            if len(dados) == 7 and dados[5] == email:
+                for campo, valor in novos_dados.items():
+                    if campo in indices:
+                        dados[indices[campo]] = valor
+                usuario_editado = True
+                novas_linhas.append("|".join(dados) + "\n")
+            else:
+                novas_linhas.append(linha)
+
+        # Reescreve o arquivo
+        arquivo_cadastro = open("cadastro.txt", "w", encoding="utf-8") 
+        arquivo_cadastro.writelines(novas_linhas)
+
+        return usuario_editado
+
+    except Exception as e:
+        print(f"Erro ao editar usuário: {e}")
+        return False
+
+    finally:
+        if arquivo_cadastro:
+            arquivo_cadastro.close()

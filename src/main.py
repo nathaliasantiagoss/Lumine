@@ -1,6 +1,6 @@
 from datetime import datetime
 import funcoes.utils as utils
-import funcoes.armazenamento as armazenamento
+import funcoes.armazenamento as armazenamento 
 
 while True:
     print("\n=== Bem-vindo(a) ao LUMINE ===")
@@ -34,7 +34,7 @@ while True:
                         usuarios = armazenamento.ler_usuarios()
                         print("\n=== Lista de Colaboradores ===")
                         for u in usuarios:
-                            print(f"{u['nome']} - {u['email']} - {u['setor']} - {u['cargo']}")
+                            print(f"{u['nome']} - {u['idade']}anos - {u['email']} - {u['setor']} - {u['cargo']}")
                         print()
 
                     # Relatório de humor
@@ -57,7 +57,8 @@ while True:
                     opcao_menu = input("O que deseja fazer?\n" \
                     "1 - Registrar Humor\n" \
                     "2 - Resgatar recompensas\n" \
-                    "3 - Sair\n"
+                    "3 - Atualizar cadastro\n" \
+                    "4 - Sair\n"
                     "Opção: ")
 
                     if opcao_menu == '1':
@@ -110,7 +111,46 @@ while True:
 
                             print(f"Você resgatou: {premio_escolhido}!")
                             print(f"Novo saldo de pontos: {nova_pontuacao}\n")
-                    elif opcao_menu == '3':
+                    elif opcao_menu == "3":
+                        print("=== Editar minhas informações ===")
+
+                        novos_dados = {}
+
+                        nome = input("Novo nome (enter para manter): ").strip()
+                        if nome:
+                            novos_dados["nome"] = nome
+
+                        idade = input("Nova idade (enter para manter): ").strip()
+                        if idade:
+                            novos_dados["idade"] = idade
+
+                        genero = input("Novo gênero (enter para manter): ").strip()
+                        if genero:
+                            novos_dados["genero"] = genero
+
+                        setor = input("Novo setor (enter para manter): ").strip()
+                        if setor:
+                            novos_dados["setor"] = setor
+
+                        cargo = input("Novo cargo (enter para manter): ").strip()
+                        if cargo:
+                            novos_dados["cargo"] = cargo
+
+                        senha = input("Nova senha (enter para manter): ").strip()
+                        if senha:
+                            novos_dados["senha"] = senha
+
+                        if novos_dados:
+                            sucesso = armazenamento.atualizar_usuario(usuario_logado["email"], novos_dados)
+
+                            if sucesso:
+                                print("Informações atualizadas com sucesso!")
+                            else:
+                                print("Erro ao atualizar suas informações.")
+                        else:
+                            print("Nenhuma alteração realizada.")
+
+                    elif opcao_menu == '4':
                         print(f'Até breve, {usuario_logado["nome"]}')
                         break
                     else:
