@@ -24,8 +24,9 @@ while True:
                     opcao_admin = input(
                         "1 - Visualizar lista de cadastrados\n"
                         "2 - Relatório de humor\n"
-                        "3 - Deletar colaborador\n"
-                        "4 - Sair\n"
+                        "3 - Atualizar setor/cargo de um colaborador\n"
+                        "4 - Deletar colaborador\n"
+                        "5 - Sair\n"
                         "Opção: "
                     )
 
@@ -41,13 +42,35 @@ while True:
                     elif opcao_admin == "2":
                         armazenamento.relatorio_humor_por_setor()
                         print()
+                    elif opcao_admin == "3":
+                        email_update = input("Digite o email do colaborador a deletar: ")
+                        print("=== Editar minhas informações ===")
+
+                        novos_dados = {}
+
+                        setor = input("Novo setor (enter para manter): ").strip()
+                        if setor:
+                            novos_dados["setor"] = setor
+                        cargo = input("Novo cargo (enter para manter): ").strip()
+                        if cargo:
+                            novos_dados["cargo"] = cargo
+
+                        if novos_dados:
+                            sucesso = armazenamento.atualizar_usuario_admin(email_update, novos_dados)
+
+                            if sucesso:
+                                print("Informações atualizadas com sucesso!")
+                            else:
+                                print("Erro ao atualizar suas informações.")
+                        else:
+                            print("Nenhuma alteração realizada.")
 
                     # Deletar colaborador
-                    elif opcao_admin == "3":
+                    elif opcao_admin == "4":
                         email_del = input("Digite o email do colaborador a deletar: ")
                         armazenamento.deletar_usuario(email_del)
 
-                    elif opcao_admin == "4":
+                    elif opcao_admin == "5":
                         break
                     else:
                         print("Opção inválida.\n")
@@ -127,14 +150,6 @@ while True:
                         genero = input("Novo gênero (enter para manter): ").strip()
                         if genero:
                             novos_dados["genero"] = genero
-
-                        setor = input("Novo setor (enter para manter): ").strip()
-                        if setor:
-                            novos_dados["setor"] = setor
-
-                        cargo = input("Novo cargo (enter para manter): ").strip()
-                        if cargo:
-                            novos_dados["cargo"] = cargo
 
                         senha = input("Nova senha (enter para manter): ").strip()
                         if senha:

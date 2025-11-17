@@ -1,4 +1,4 @@
 admin|0|-|-|-|admin@admin.com|admin
 Nathalia|29|Feminino|TI|Dev|nathalia@gmail.com|628425
-Lohan|22|Masculino|TI|Dev|lohan@gmail.com|12345
-Zeca|20|Masculino|Educação|Professor|zeca@gmail.com|123456
+Lohan|22|Masculino|Projetos|Gerente|lohan@gmail.com|12345
+Zeca|35|Masculino|Educação|Professor|zeca@gmail.com|987654
