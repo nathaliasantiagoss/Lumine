@@ -1,4 +1,4 @@
-LUMINE – Sistema de Gestão de Humor e Recompensas
+**LUMINE – Sistema de Gestão de Humor e Recompensas**
 
 O LUMINE é um sistema em Python focado na gestão do bem-estar emocional de colaboradores, permitindo que usuários registrem seu humor, resgatem recompensas e visualizem relatórios.
 Possui dois tipos de acesso:
@@ -8,22 +8,9 @@ Possui dois tipos de acesso:
 
 O sistema utiliza arquivos .txt para armazenamento simples e acessível.
 
-Estrutura do Projeto
+**Funcionalidades Principais**
 
-/LUMINE
-│
-├── main.py
-├── funcoes/
-│   ├── utils.py
-│   └── armazenamento.py
-│
-├── cadastro.txt
-├── humor.txt
-└── pontuacao.txt
-
-Funcionalidades Principais
-
-1. Cadastro de Usuário
+**1. Cadastro de Usuário**
 
     O usuário informa:
 
@@ -37,7 +24,7 @@ Funcionalidades Principais
 
     Dados são armazenados em cadastro.txt.
 
-2. Login
+**2. Login**
 
     Autenticação feita com:
 
@@ -51,13 +38,13 @@ Funcionalidades Principais
         - Email: admin@admin.com
         - Senha: admin
 
-Menu Administrador
+**Menu Administrador**
 
-1. Visualizar Lista de Cadastrados
+**1. Visualizar Lista de Cadastrados**
 
-    - Exibe todos os colaboradores e seus dados.
+    Exibe todos os colaboradores e seus dados.
 
-2. Relatório de Humor por Setor
+**2. Relatório de Humor por Setor**
 
     Gera um resumo com:
 
@@ -67,7 +54,7 @@ Menu Administrador
 
     Usa os dados de humor.txt.
 
-3. Atualizar Setor/Cargo
+**3. Atualizar Setor/Cargo**
 
     Permite modificar informações de:
 
@@ -76,19 +63,18 @@ Menu Administrador
 
     de qualquer usuário.
 
-4. Deletar Colaborador
+**4. Deletar Colaborador**
 
     Remove usuário do arquivo cadastro.txt com base no email.
 
-Menu Usuário (Colaborador)
+**Menu Usuário (Colaborador)**
 
-1. Registrar Humor
+**1. Registrar Humor**
 
     Usuário seleciona:
 
         Humor (Muito bem, Bem, Neutro, Estressado, Irritado, Triste)
-
-    Contexto do dia
+        Contexto do dia
 
     O sistema salva:
 
@@ -99,7 +85,7 @@ Menu Usuário (Colaborador)
 
     Além disso, o colaborador ganha +10 pontos.
 
-2. Resgatar Recompensas
+**2. Resgatar Recompensas**
 
     O usuário pode trocar seus pontos por premiações como:
 
@@ -111,7 +97,7 @@ Menu Usuário (Colaborador)
 
     Pontuação é lida e atualizada em pontuacao.txt.
 
-3. Atualizar Cadastro
+**3. Atualizar Cadastro**
 
     Usuário pode alterar:
 
@@ -122,11 +108,11 @@ Menu Usuário (Colaborador)
 
     As alterações são aplicadas diretamente no arquivo de cadastro.
 
-4. Sair
+**4. Sair**
 
     Retorna ao menu inicial.
 
-Arquivos do Sistema
+**Arquivos do Sistema**
 
     - cadastro.txt
 
@@ -146,7 +132,7 @@ Arquivos do Sistema
 
             nome|pontos
 
-Como Executar
+**Como Executar**
 
     - Certifique-se de ter Python 3 instalado.
     - Coloque todos os arquivos na estrutura indicada.
