@@ -3,3 +3,7 @@ Educação|Muito bem|Tudo tranquilo, normal|2025-11-10 19:58:33
 TI|Triste|Desmotivado ou cansado emocionalmente|2025-11-13 17:59:06
 TI|Opção inválida|Opção inválida|2025-11-13 17:59:20
 TI|Irritado|Desmotivado ou cansado emocionalmente|2025-11-13 17:59:30
+Pedagógico|Muito bem|Dia excelente|2025-11-17 19:52:10
+Financeiro|Muito bem|Dia excelente|2025-11-23 21:56:52
+Financeiro|Bem|Tudo tranquilo, normal|2025-11-23 21:57:18
+Empresário|Bem|Tudo tranquilo, normal|2025-11-29 18:43:15

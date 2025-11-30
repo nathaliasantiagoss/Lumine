@@ -1,4 +1,6 @@
 admin|0|-|-|-|admin@admin.com|admin
 Nathalia|29|Feminino|TI|Dev|nathalia@gmail.com|123456
 Lohan|22|Masculino|Projetos|Gerente|lohan@gmail.com|12345
-Zeca|35|Masculino|Educação|Professor|zeca@gmail.com|987654
+Karla|46|Feminino|Pedagógico|Dev|karla@gmail.com|987654
+Andreza Caroline Batista da Silva |31|Feminino|Financeiro|Analista Financeira|andrezacaroline5@gmail.com|hope5
+Ricardo de Lima e Souza|51|Masculino|Empresário|Proprietário|contato@inovepark.com.br|12345
